@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>FB login</title>
+  </head>
+  <body>
+    <a id="loginBtn" (click)="loginWithFB()">Login with Facebook</a>
+
+    <script>
+      loginWithFB = () => {
+        FB.login(
+          response => {
+            console.log(response);
+
+            console.log(response.status);
+          },
+          { scope: "public_profile,email,user_likes" }
+        );
+      };
+
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId: "1326526600832223",
+          cookie: true,
+          xfbml: true,
+          version: "v3.2"
+        });
+
+        FB.AppEvents.logPageView();
+      };
+
+      (function(d, s, id) {
+        var js,
+          fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+          return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      })(document, "script", "facebook-jssdk");
+      document
+        .getElementById("loginBtn")
+        .addEventListener("click", loginWithFB, false);
+    </script>
+    <script src="./script.js"></script>
+  </body>
+</html>
